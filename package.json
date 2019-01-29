@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {
-    "rrcg": "./bin/rrcg"
+    "rrcg": "./bin/rrcg.js"
   },
   "scripts": {
     "start": "tsc -w",

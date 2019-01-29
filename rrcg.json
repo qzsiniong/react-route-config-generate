@@ -1,0 +1,4 @@
+{
+    "pagesDir": "./pages/",
+    "routesConfigPath": "./routes.json"
+}
