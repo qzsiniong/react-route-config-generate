@@ -80,7 +80,7 @@ const sortRoutes = (routes: IRoute[]) => {
 
 export const generate = async (projectRoot: string, watchMode = false) => {
     const config: IConfig = await import(join(projectRoot, 'rrcg.json'))
-    const pagesDir = join(projectRoot, config.pagesDir)
+    const pagesDir = join(projectRoot, config.pagesDir.replace(/\/$/,''))
     const routesPath = join(projectRoot, config.routesConfigPath)
     const indexPage = config.indexPage || '/'
 
