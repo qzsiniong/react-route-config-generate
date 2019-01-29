@@ -1,0 +1,49 @@
+{
+  "name": "react-route-config-generate",
+  "version": "1.0.1",
+  "description": "",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "bin": {
+    "rrcg": "./bin/rrcg"
+  },
+  "scripts": {
+    "start": "tsc -w",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "commit": "git-cz",
+    "test": "jest --config jestconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@commitlint/cli": "^7.4.0",
+    "@commitlint/config-conventional": "^7.3.1",
+    "@types/chokidar": "^1.7.5",
+    "@types/jest": "^23.3.13",
+    "@types/lodash": "^4.14.120",
+    "@types/shelljs": "^0.8.2",
+    "commitizen": "^3.0.5",
+    "cz-conventional-changelog": "^2.1.0",
+    "husky": "^1.3.1",
+    "jest": "^24.0.0",
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.2.4"
+  },
+  "dependencies": {
+    "chokidar": "^2.0.4",
+    "commander": "^2.19.0",
+    "glob": "^7.1.3",
+    "lodash": "^4.17.11",
+    "prettier": "^1.16.1",
+    "shelljs": "^0.8.3",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0"
+  }
+}
