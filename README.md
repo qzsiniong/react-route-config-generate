@@ -36,15 +36,17 @@ yarn add react-route-config-generate
 
 目录结构：
 
-> ├── pages
-> │   └── demo
-> │       ├── -name
-> │       │   └── @detail.tsx
-> │       ├── -name-id
-> │       │   └── @index.tsx
-> │       ├── @-age.tsx
-> │       ├── @-hello-world-name.tsx
-> │       ├── @index.tsx
+```
+├── pages
+│   └── demo
+│       ├── -name
+│       │   └── @detail.tsx
+│       ├── -name-id
+│       │   └── @index.tsx
+│       ├── @-age.tsx
+│       ├── @-hello-world-name.tsx
+│       ├── @index.tsx
+```
 
 
 
