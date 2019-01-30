@@ -77,8 +77,13 @@ const sortRoutes = (routes: IRoute[]) => {
     return routes
 }
 
+const loadConfig = (file:string):IConfig => {
+    const f = fs.readFileSync(file)
+    return JSON.parse(f.toString())
+}
+
 export const generate = async (projectRoot: string, watchMode = false) => {
-    const config: IConfig = await import(join(projectRoot, 'rrcg.json'))
+    const config: IConfig = loadConfig(join(projectRoot, 'rrcg.json'))
     const pagesDir = join(projectRoot, config.pagesDir.replace(/\/$/, ''))
     const routesPath = join(projectRoot, config.routesConfigPath)
     const indexPage = config.indexPage || '/'
@@ -156,6 +161,7 @@ export const generate = async (projectRoot: string, watchMode = false) => {
     })
 
     if (watchMode) {
+        console.log('wait for changes...')
         const watcher = chokidar.watch(pagesDir, { ignoreInitial: true })
         watcher.on('add', async (rPath: string) => {
             if (isPage(rPath)) {
@@ -168,6 +174,13 @@ export const generate = async (projectRoot: string, watchMode = false) => {
                 removeRoute(rPath)
                 await writeRoutesFile()
             }
+        })
+
+        // re generate if rrcg.json change
+        chokidar.watch(join(projectRoot, 'rrcg.json'), { ignoreInitial: true })
+        .once('all', () => {
+            watcher.close();
+            generate(projectRoot, watchMode);
         })
     }
 }
