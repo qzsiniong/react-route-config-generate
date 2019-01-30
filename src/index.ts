@@ -77,7 +77,7 @@ const sortRoutes = (routes: IRoute[]) => {
     return routes
 }
 
-const loadConfig = (file:string):IConfig => {
+const loadConfig = (file: string): IConfig => {
     const f = fs.readFileSync(file)
     return JSON.parse(f.toString())
 }
@@ -177,10 +177,9 @@ export const generate = async (projectRoot: string, watchMode = false) => {
         })
 
         // re generate if rrcg.json change
-        chokidar.watch(join(projectRoot, 'rrcg.json'), { ignoreInitial: true })
-        .once('all', () => {
-            watcher.close();
-            generate(projectRoot, watchMode);
+        chokidar.watch(join(projectRoot, 'rrcg.json'), { ignoreInitial: true }).once('all', () => {
+            watcher.close()
+            generate(projectRoot, watchMode)
         })
     }
 }

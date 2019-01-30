@@ -1,9 +1,5 @@
 [
   {
-    "path": "/demo",
-    "component": "/demo/@index"
-  },
-  {
     "path": "/demo/user",
     "component": "/demo/@user"
   },
@@ -22,5 +18,9 @@
   {
     "path": "/demo/:hello/:world/:name?",
     "component": "/demo/@-hello-world_name"
+  },
+  {
+    "path": "/",
+    "component": "/demo/@index"
   }
 ]
