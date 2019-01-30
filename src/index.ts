@@ -2,7 +2,7 @@ import chokidar from 'chokidar'
 import fs from 'fs'
 import glob from 'glob'
 import commander from 'commander'
-import { join } from 'path'
+import path from 'path'
 
 interface IConfig {
     pagesDir: string
@@ -83,9 +83,9 @@ const loadConfig = (file: string): IConfig => {
 }
 
 export const generate = async (projectRoot: string, watchMode = false) => {
-    const config: IConfig = loadConfig(join(projectRoot, 'rrcg.json'))
-    const pagesDir = join(projectRoot, config.pagesDir.replace(/\/$/, ''))
-    const routesPath = join(projectRoot, config.routesConfigPath)
+    const config: IConfig = loadConfig(path.resolve('rrcg.json'))
+    const pagesDir = path.resolve(config.pagesDir.replace(/\/$/, ''))
+    const routesPath = path.resolve(config.routesConfigPath)
     const indexPage = config.indexPage || '/'
 
     let routes: IRoute[] = []
@@ -177,7 +177,7 @@ export const generate = async (projectRoot: string, watchMode = false) => {
         })
 
         // re generate if rrcg.json change
-        chokidar.watch(join(projectRoot, 'rrcg.json'), { ignoreInitial: true }).once('all', () => {
+        chokidar.watch(path.resolve('rrcg.json'), { ignoreInitial: true }).once('all', () => {
             watcher.close()
             generate(projectRoot, watchMode)
         })
