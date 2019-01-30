@@ -46,6 +46,7 @@ yarn add react-route-config-generate
 │       ├── @-age.tsx
 │       ├── @-hello-world-name.tsx
 │       ├── @index.tsx
+│       ├── @user.tsx
 ```
 
 
