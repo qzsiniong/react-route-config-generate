@@ -30,10 +30,7 @@ yarn add react-route-config-generate
 }
 ```
 
-#### 页面文件必须以`@`开头，以`.tsx`结尾
-
-
-
+#### 示例：
 目录结构：
 
 ```
@@ -44,15 +41,15 @@ yarn add react-route-config-generate
 │       ├── -name-id
 │       │   └── @index.tsx
 │       ├── @-age.tsx
-│       ├── @-hello-world-name.tsx
+│       ├── @-hello-world_name.tsx
 │       ├── @index.tsx
 │       ├── @user.tsx
 ```
 
 
-
 生成的路由配置json：
-
+> 1. 页面文件必须以`@`开头，以`.tsx`结尾
+> 2. 路径中，`_param` 表示可选参数，`-param`表示非可选参数
 ```json
 [
   {
@@ -76,8 +73,8 @@ yarn add react-route-config-generate
     "component": "/demo/-name-id/@index"
   },
   {
-    "path": "/demo/:hello/:world/:name",
-    "component": "/demo/@-hello-world-name"
+    "path": "/demo/:hello/:world/:name?",
+    "component": "/demo/@-hello-world_name"
   }
 ]
 ```
