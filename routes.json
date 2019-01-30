@@ -20,7 +20,7 @@
     "component": "/demo/-name-id/@index"
   },
   {
-    "path": "/demo/:hello/:world/:name",
-    "component": "/demo/@-hello-world-name"
+    "path": "/demo/:hello/:world/:name?",
+    "component": "/demo/@-hello-world_name"
   }
 ]

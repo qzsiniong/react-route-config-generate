@@ -1,7 +1,6 @@
 import chokidar from 'chokidar'
 import fs from 'fs'
 import glob from 'glob'
-import lodash from 'lodash'
 import commander from 'commander'
 import { join } from 'path'
 
@@ -115,7 +114,8 @@ export const generate = async (projectRoot: string, watchMode = false) => {
         }
     }
 
-    const writeRoutesFile = lodash.debounce(async () => {
+    // const writeRoutesFile = lodash.debounce(async () => {
+    const writeRoutesFile = async () => {
         const routesJson = JSON.stringify(routes, undefined, 2)
         await new Promise(resolve => {
             fs.writeFile(routesPath, routesJson, async err => {
@@ -126,30 +126,32 @@ export const generate = async (projectRoot: string, watchMode = false) => {
             })
         })
         console.log(`generate routes json:${routesPath}`)
-    }, 1000)
+    }
+    // }, 1000)
 
-    const addRoute = async (f: string) => {
+    const addRoute = (f: string) => {
         f = f.replace(new RegExp(`^${pagesDir}`), '').replace(/\.tsx$/, '')
         const route = createRoute(f)
         routes.push(route)
         routes = sortRoutes(routes)
-        await writeRoutesFile()
         console.log(`add route :${route.path} -> ${f}`)
     }
-    const removeRoute = async (f: string) => {
+    const removeRoute = (f: string) => {
         f = f.replace(new RegExp(`^${pagesDir}`), '').replace(/\.tsx$/, '')
         const routePath = createRoute(f).path
-
         routes = routes.filter(r => r.path !== routePath)
-        await writeRoutesFile()
         console.log(`remove route :${routePath} -> ${f}`)
     }
 
-    glob(`${pagesDir}/**/*.tsx`, (err, files) => {
-        files.forEach(async file => {
-            if (isPage(file)) {
-                await addRoute(file)
+    await new Promise(resolve => {
+        glob(`${pagesDir}/**/*.tsx`, async (err, files) => {
+            for (const file of files) {
+                if (isPage(file)) {
+                    addRoute(file)
+                }
             }
+            await writeRoutesFile()
+            resolve()
         })
     })
 
@@ -157,12 +159,14 @@ export const generate = async (projectRoot: string, watchMode = false) => {
         const watcher = chokidar.watch(pagesDir, { ignoreInitial: true })
         watcher.on('add', async (rPath: string) => {
             if (isPage(rPath)) {
-                await addRoute(rPath)
+                addRoute(rPath)
+                await writeRoutesFile()
             }
         })
         watcher.on('unlink', async (rPath: string) => {
             if (isPage(rPath)) {
-                await removeRoute(rPath)
+                removeRoute(rPath)
+                await writeRoutesFile()
             }
         })
     }
