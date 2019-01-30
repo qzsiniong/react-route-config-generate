@@ -1,7 +1,8 @@
 {
   "name": "react-route-config-generate",
   "version": "1.0.13",
-  "description": "",
+  "description": "a cli for generate react route config file(route.json)",
+  "keywords": ["react", "react-route", "route", "generate", "json"],
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "bin": {

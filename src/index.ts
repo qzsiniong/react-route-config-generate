@@ -187,6 +187,7 @@ export const generate = async (projectRoot: string, watchMode = false) => {
 export const generateCli = async () => {
     commander.option('-w, --watch', 'Watch mode').parse(process.argv)
     const projectRoot = process.cwd()
+    const watch = !!commander.watch
 
-    generate(projectRoot, commander.watch)
+    generate(projectRoot, watch)
 }
