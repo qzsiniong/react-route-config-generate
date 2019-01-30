@@ -41,5 +41,9 @@
     "prettier": "^1.16.1",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qzsiniong/react-route-config-generate.git"
   }
 }
