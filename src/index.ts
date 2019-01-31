@@ -82,7 +82,7 @@ const loadConfig = (file: string): IConfig => {
     return JSON.parse(f.toString())
 }
 
-export const generate = async (projectRoot: string, watchMode = false) => {
+export const generate = async (watchMode = false) => {
     const config: IConfig = loadConfig(path.resolve('rrcg.json'))
     const pagesDir = path.resolve(config.pagesDir.replace(/\/$/, ''))
     const routesPath = path.resolve(config.routesConfigPath)
@@ -177,17 +177,17 @@ export const generate = async (projectRoot: string, watchMode = false) => {
         })
 
         // re generate if rrcg.json change
-        chokidar.watch(path.resolve('rrcg.json'), { ignoreInitial: true }).once('all', () => {
+        const watcher1 = chokidar.watch(path.resolve('rrcg.json'), { ignoreInitial: true }).once('all', () => {
+            watcher1.close()
             watcher.close()
-            generate(projectRoot, watchMode)
+            generate(watchMode)
         })
     }
 }
 
 export const generateCli = async () => {
     commander.option('-w, --watch', 'Watch mode').parse(process.argv)
-    const projectRoot = process.cwd()
     const watch = !!commander.watch
 
-    generate(projectRoot, watch)
+    generate(watch)
 }
